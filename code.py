@@ -1,5 +1,4 @@
-from db_utils import execute_query,execute_batch_query
-import json
+from db_utils import execute_query,bulk_insert
 def temp():
     import time
     start_time = time.time()
@@ -8,9 +7,10 @@ def temp():
 select count(*) from products where (metadata->>'price')::int=1000;
 '''
     )
+    print(res)
     end_time = time.time()
     print(f"Query executed in {end_time - start_time:.2f} seconds")
 
-    print(res)
+    # print(bulk_insert())
 if __name__=="__main__":
     temp()

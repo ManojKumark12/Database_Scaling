@@ -1,13 +1,17 @@
 import psycopg2
 from psycopg2.extras import execute_batch
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Loads .env file
 def connect_to_db():
     conn = psycopg2.connect(
-    database="learn_something",
-    user="manoj",
-    password="manoj",
-    host="localhost",
-    port="5432"
+    database=os.getenv("DATABASE"),
+    user=os.getenv("USER"),
+    password=os.getenv("PASSWORD"),
+    host=os.getenv("HOST"),
+    port=os.getenv("PORT")
             )
     return conn
 def execute_query(query, params=None, rows='multiple'):
@@ -44,7 +48,7 @@ def bulk_insert():
             "size": "L",
             "price": i
         }))
-        for i in range(1_000_000)
+        for i in range(1_00_000)
     ]
     res=execute_batch_query(
         '''
